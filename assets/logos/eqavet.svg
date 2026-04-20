@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 420 130" role="img" aria-labelledby="title desc">
+  <title id="title">Selo de conformidade EQAVET</title>
+  <desc id="desc">Logotipo vetorial simplificado</desc>
+  <rect width="420" height="130" fill="#ffffff"/>
+  <circle cx="58" cy="64" r="47" fill="#12924f"/>
+  <path d="M28 64 l20 20 l40 -40" fill="none" stroke="#ffffff" stroke-width="12" stroke-linecap="round" stroke-linejoin="round"/>
+  <text x="122" y="44" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="30" fill="#1f1f1f" font-weight="700">SELO DE</text>
+  <text x="122" y="76" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="30" fill="#1f1f1f" font-weight="700">CONFORMIDADE</text>
+  <text x="122" y="109" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="38" fill="#0b8cb8" font-weight="800">EQAVET</text>
+</svg>

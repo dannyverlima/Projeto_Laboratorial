@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 130" role="img" aria-labelledby="title desc">
+  <title id="title">Pessoas 2030 Cofinanciado pela Uniao Europeia</title>
+  <desc id="desc">Logotipo vetorial simplificado</desc>
+  <rect width="620" height="130" fill="#ffffff"/>
+  <g transform="translate(12,20)">
+    <circle cx="22" cy="22" r="10" fill="#e05f33"/>
+    <circle cx="48" cy="22" r="10" fill="#4f88c7"/>
+    <circle cx="35" cy="44" r="10" fill="#4caf50"/>
+    <rect x="19" y="54" width="32" height="22" rx="8" fill="#ed9d22"/>
+  </g>
+  <text x="80" y="52" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="44" fill="#2f4ea2" font-weight="700">PESSOAS</text>
+  <text x="80" y="94" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="44" fill="#2f4ea2" font-weight="700">2030</text>
+  <g transform="translate(250,18)">
+    <path d="M0 56 L30 16 L48 34 L20 74 Z" fill="#1ea34a"/>
+    <path d="M26 56 L62 20 L76 34 L42 72 Z" fill="#cf2f3f"/>
+    <text x="86" y="54" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="52" fill="#1f5f96" font-weight="700">2030</text>
+  </g>
+  <g transform="translate(396,20)">
+    <rect x="0" y="0" width="96" height="64" fill="#1848b0"/>
+    <circle cx="48" cy="32" r="20" fill="none" stroke="#ffd54d" stroke-width="6"/>
+    <text x="112" y="28" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="22" fill="#19478e" font-weight="700">Cofinanciado pela</text>
+    <text x="112" y="56" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="22" fill="#19478e" font-weight="700">Uniao Europeia</text>
+  </g>
+</svg>

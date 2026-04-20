@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 560 130" role="img" aria-labelledby="title desc">
+  <title id="title">Agrupamento de Escolas de Pombal</title>
+  <desc id="desc">Logotipo vetorial simplificado</desc>
+  <rect width="560" height="130" fill="#ffffff"/>
+  <g transform="translate(16,14)">
+    <circle cx="46" cy="50" r="34" fill="none" stroke="#0b4f8a" stroke-width="14"/>
+    <path d="M24 18 C12 30, 12 58, 24 80" fill="none" stroke="#d96b1f" stroke-width="14" stroke-linecap="round"/>
+    <path d="M68 20 C80 34, 82 62, 70 84" fill="none" stroke="#0b4f8a" stroke-width="10" stroke-linecap="round"/>
+  </g>
+  <text x="110" y="56" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="42" fill="#0b4f8a" font-weight="700">Agrupamento de</text>
+  <text x="110" y="98" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="42" fill="#0b4f8a" font-weight="700">Escolas de Pombal</text>
+</svg>

@@ -1,0 +1,300 @@
+:root {
+  --bg-page: #efefef;
+  --bg-panel: #9d9d9f;
+  --bg-soft: #c6c6c8;
+  --text-main: #111;
+  --text-muted: #3b3b3b;
+  --brand-blue: #0d4f8b;
+  --brand-green: #0f8b4c;
+  --brand-orange: #d96b1f;
+  --line: #bdbdbd;
+  --radius: 22px;
+  --shadow: 0 14px 26px rgba(0, 0, 0, 0.12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: "Trebuchet MS", "Segoe UI", Tahoma, sans-serif;
+  color: var(--text-main);
+  background:
+    radial-gradient(circle at 15% 5%, #ffffff 0%, #f4f4f4 36%, #ececec 100%),
+    linear-gradient(160deg, rgba(255, 255, 255, 0.4), rgba(0, 0, 0, 0.02));
+}
+
+.page-shell {
+  max-width: 1380px;
+  margin: 0 auto;
+  padding: 0 14px 18px;
+}
+
+.site-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 10px 10px;
+}
+
+.school-brand img {
+  width: 290px;
+  height: auto;
+}
+
+.site-title {
+  margin: 0;
+  font-size: clamp(2.1rem, 5vw, 4rem);
+  letter-spacing: 0.5px;
+  font-family: Georgia, "Times New Roman", serif;
+}
+
+.logo-ribbon,
+.footer-ribbon {
+  background: #d8d8d8;
+  border: 1px solid #d0d0d0;
+  display: grid;
+  align-items: center;
+}
+
+.logo-ribbon {
+  grid-template-columns: repeat(4, minmax(140px, 1fr));
+  gap: 10px;
+  padding: 7px 10px;
+}
+
+.footer-ribbon {
+  grid-template-columns: repeat(4, minmax(160px, 1fr));
+  gap: 16px;
+  padding: 8px 10px;
+  margin-top: 12px;
+}
+
+.logo-ribbon img,
+.footer-ribbon img {
+  max-width: 100%;
+  max-height: 72px;
+  object-fit: contain;
+}
+
+.main-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: 3.2fr 1fr;
+  gap: 18px;
+}
+
+.info-panel,
+.meteo-panel {
+  background: var(--bg-panel);
+  border: 1px solid #a8a8a8;
+  box-shadow: var(--shadow);
+}
+
+.info-panel {
+  padding: 12px 14px;
+}
+
+.panel-title {
+  margin: 0;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 800;
+}
+
+.info-content {
+  margin-top: 10px;
+  display: grid;
+  grid-template-columns: minmax(250px, 340px) 1fr;
+  gap: 20px;
+  align-items: start;
+}
+
+.visual-card {
+  background: var(--bg-soft);
+  border-radius: 34px;
+  min-height: 420px;
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.visual-card h2,
+.meteo-panel h2 {
+  margin: 0;
+  font-size: 1.45rem;
+}
+
+.kpi-strip {
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #d8d8d8;
+  padding: 10px;
+}
+
+.kpi-strip p {
+  margin: 4px 0;
+  font-size: 0.92rem;
+}
+
+.kpi-value {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+
+.mini-chart {
+  display: flex;
+  align-items: flex-end;
+  gap: 7px;
+  height: 115px;
+  margin-top: 10px;
+}
+
+.mini-chart .bar {
+  flex: 1;
+  border-radius: 6px 6px 0 0;
+  background: linear-gradient(180deg, #2d76b7, #0d4f8b);
+  position: relative;
+}
+
+.mini-chart .bar span {
+  position: absolute;
+  bottom: -20px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 0.72rem;
+}
+
+.info-list {
+  margin: 14px 0 0;
+  padding-left: 30px;
+  font-size: clamp(1.05rem, 2.6vw, 2.1rem);
+  line-height: 1.5;
+}
+
+.info-list li {
+  margin-bottom: 7px;
+}
+
+.calendar {
+  margin-top: 10px;
+  background: #fff;
+  border-radius: 12px;
+  border: 1px solid #d8d8d8;
+  padding: 10px;
+}
+
+.calendar h3,
+.air-quality h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.calendar ul,
+.air-quality ul {
+  margin: 0;
+  padding-left: 20px;
+  font-size: 0.88rem;
+  color: var(--text-muted);
+}
+
+.calendar li,
+.air-quality li {
+  margin-bottom: 5px;
+}
+
+.meteo-panel {
+  padding: 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.meteo-box {
+  flex: 1;
+  border-radius: 12px;
+  border: 1px solid #b8b8b8;
+  background: linear-gradient(190deg, rgba(255, 255, 255, 0.68), rgba(255, 255, 255, 0.35));
+  padding: 10px;
+}
+
+.weather-now {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.weather-temp {
+  font-size: 2.25rem;
+  font-weight: 700;
+  color: var(--brand-blue);
+}
+
+.weather-desc {
+  margin: 0;
+  font-weight: 600;
+}
+
+.weather-meta {
+  margin: 5px 0;
+  font-size: 0.9rem;
+}
+
+.status-pill {
+  display: inline-block;
+  margin-top: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  font-size: 0.83rem;
+  font-weight: 700;
+}
+
+.status-good {
+  background: #dff4e8;
+  color: #0f8b4c;
+}
+
+.status-warn {
+  background: #fff2db;
+  color: #9e5f12;
+}
+
+.updated-at {
+  margin: 0;
+  font-size: 0.8rem;
+  color: #515151;
+}
+
+@media (max-width: 1100px) {
+  .main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .info-content {
+    grid-template-columns: 1fr;
+  }
+
+  .visual-card {
+    min-height: auto;
+  }
+}
+
+@media (max-width: 780px) {
+  .logo-ribbon,
+  .footer-ribbon {
+    grid-template-columns: repeat(2, minmax(140px, 1fr));
+  }
+
+  .site-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .school-brand img {
+    width: min(76vw, 300px);
+  }
+}

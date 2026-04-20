@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 230 130" role="img" aria-labelledby="title desc">
+  <title id="title">A construcao do futuro logo</title>
+  <desc id="desc">Selo vetorial simplificado</desc>
+  <rect width="230" height="130" fill="#ffffff"/>
+  <circle cx="115" cy="65" r="54" fill="#f2f8ff" stroke="#3c66a8" stroke-width="6"/>
+  <circle cx="115" cy="65" r="40" fill="#ffe07a" stroke="#3c66a8" stroke-width="4"/>
+  <text x="115" y="60" text-anchor="middle" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="14" fill="#1f4f94" font-weight="700">A CONSTRUCAO</text>
+  <text x="115" y="80" text-anchor="middle" font-family="Trebuchet MS, Segoe UI, sans-serif" font-size="14" fill="#1f4f94" font-weight="700">DO FUTURO</text>
+  <circle cx="115" cy="65" r="8" fill="#1f4f94"/>
+</svg>
