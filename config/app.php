@@ -23,6 +23,7 @@ return [
             'consumo_diario' => envValue('SUPABASE_TABLE_CONSUMO', 'consumo_diario'),
             'eventos_escola' => envValue('SUPABASE_TABLE_EVENTOS', 'eventos_escola'),
             'qualidade_ar' => envValue('SUPABASE_TABLE_QUALIDADE_AR', 'qualidade_ar'),
+            'ementa_almocos' => envValue('SUPABASE_TABLE_EMENTA', 'ementa_almocos'),
         ],
     ],
 ];

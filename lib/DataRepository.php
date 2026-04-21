@@ -47,7 +47,15 @@ final class DataRepository
             }
         }
 
-        return $this->mockData['consumo_diario'];
+        return $this->mockData['consumo_diario'] ?? [];
+    }
+
+    /**
+     * @return array<int, array{dia: string, kwh: int}>
+     */
+    public function getConsumoSemanaPassada(): array
+    {
+        return $this->mockData['consumo_semana_passada'] ?? [];
     }
 
     /**
@@ -84,7 +92,7 @@ final class DataRepository
             }
         }
 
-        return $this->mockData['eventos'];
+        return $this->mockData['eventos'] ?? [];
     }
 
     /**
@@ -113,7 +121,40 @@ final class DataRepository
             }
         }
 
-        return $this->mockData['qualidade_ar'];
+        return $this->mockData['qualidade_ar'] ?? [];
+    }
+
+    /**
+     * @return array<int, array{dia: string, prato: string, vegetariano: string, sopa: string, sobremesa: string}>
+     */
+    public function getEmentaAlmocos(): array
+    {
+        $table = (string) ($this->config['supabase']['tables']['ementa_almocos'] ?? '');
+
+        if ($this->isSupabaseReady() && $table !== '') {
+            try {
+                $rows = $this->supabaseClient->select(
+                    $table,
+                    'dia_semana,prato_principal,opcao_vegetariana,sopa,sobremesa,ordem',
+                    ['order' => 'ordem.asc']
+                );
+
+                return array_map(
+                    static fn (array $row): array => [
+                        'dia' => (string) ($row['dia_semana'] ?? ''),
+                        'prato' => (string) ($row['prato_principal'] ?? ''),
+                        'vegetariano' => (string) ($row['opcao_vegetariana'] ?? ''),
+                        'sopa' => (string) ($row['sopa'] ?? ''),
+                        'sobremesa' => (string) ($row['sobremesa'] ?? ''),
+                    ],
+                    $rows
+                );
+            } catch (Throwable $exception) {
+                // Fallback para mock em caso de indisponibilidade externa.
+            }
+        }
+
+        return $this->mockData['ementa_almocos'] ?? [];
     }
 
     private function isSupabaseReady(): bool

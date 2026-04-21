@@ -1,111 +1,131 @@
-const weatherCodeMap = {
-  0: "Ceo limpo",
-  1: "Poucas nuvens",
-  2: "Parcialmente nublado",
-  3: "Nublado",
-  45: "Nevoeiro",
-  48: "Nevoeiro denso",
-  51: "Chuvisco fraco",
-  53: "Chuvisco moderado",
-  55: "Chuvisco forte",
-  61: "Chuva fraca",
-  63: "Chuva moderada",
-  65: "Chuva forte",
-  71: "Neve fraca",
-  73: "Neve moderada",
-  75: "Neve forte",
-  80: "Aguaceiros fracos",
-  81: "Aguaceiros moderados",
-  82: "Aguaceiros fortes",
-  95: "Trovoada"
-};
+const SLIDE_VISIBLE_MS = 10000;
+const FADE_DURATION_MS = 650;
 
-function setMiniChartBars() {
-  const bars = document.querySelectorAll(".mini-chart .bar");
+function setConsumoBars() {
+  const bars = document.querySelectorAll(".consumo-bar");
   bars.forEach((bar) => {
-    const val = Number(bar.dataset.value || 0);
-    bar.style.height = `${Math.max(8, Math.min(100, val))}%`;
+    const rawValue = Number(bar.dataset.value || 0);
+    const safeValue = Math.max(8, Math.min(100, rawValue));
+
+    bar.style.height = "8%";
+    requestAnimationFrame(() => {
+      bar.style.height = `${safeValue}%`;
+    });
   });
 }
 
-function classifyAirQuality(co2ppm) {
-  if (co2ppm <= 900) {
-    return { label: "Boa", className: "status-good" };
-  }
-  return { label: "Atencao", className: "status-warn" };
-}
-
-function updateAirStatusFromRoomData() {
-  const roomNodes = document.querySelectorAll("[data-room-co2]");
-  if (!roomNodes.length) {
+function initInfoRotator() {
+  const root = document.querySelector("[data-rotator]");
+  if (!root) {
     return;
   }
 
-  const values = [...roomNodes].map((node) => Number(node.dataset.roomCo2 || 0));
-  const average = values.reduce((sum, value) => sum + value, 0) / values.length;
-  const status = classifyAirQuality(average);
+  const slides = [...root.querySelectorAll("[data-slide]")];
+  const indicators = [...root.querySelectorAll("[data-slide-to]")];
 
-  const badge = document.getElementById("air-status");
-  if (!badge) {
+  if (slides.length === 0) {
     return;
   }
 
-  badge.textContent = `Qualidade do ar: ${status.label}`;
-  badge.classList.remove("status-good", "status-warn");
-  badge.classList.add(status.className);
-}
+  let activeIndex = Math.max(0, slides.findIndex((slide) => slide.classList.contains("is-active")));
+  let timerId = null;
+  let isTransitioning = false;
 
-async function fetchPombalWeather() {
-  const endpoint = "https://api.open-meteo.com/v1/forecast?latitude=39.9167&longitude=-8.6333&current=temperature_2m,relative_humidity_2m,wind_speed_10m,weather_code&timezone=Europe%2FLisbon";
+  const setIndicators = (index) => {
+    indicators.forEach((indicator, i) => {
+      const isActive = i === index;
+      indicator.classList.toggle("is-active", isActive);
+      indicator.setAttribute("aria-current", isActive ? "true" : "false");
+    });
+  };
 
-  try {
-    const response = await fetch(endpoint);
-    if (!response.ok) {
-      throw new Error("Falha ao obter meteorologia");
+  const showSlide = (index) => {
+    slides.forEach((slide, i) => {
+      const isActive = i === index;
+      slide.classList.toggle("is-active", isActive);
+      slide.setAttribute("aria-hidden", isActive ? "false" : "true");
+    });
+    setIndicators(index);
+  };
+
+  const clearCycleTimer = () => {
+    if (timerId !== null) {
+      window.clearTimeout(timerId);
+      timerId = null;
     }
+  };
 
-    const payload = await response.json();
-    const current = payload.current || {};
+  const queueNextSlide = () => {
+    clearCycleTimer();
+    timerId = window.setTimeout(() => {
+      transitionTo(activeIndex + 1);
+    }, SLIDE_VISIBLE_MS);
+  };
 
-    const tempNode = document.getElementById("weather-temp");
-    const descNode = document.getElementById("weather-desc");
-    const humidNode = document.getElementById("weather-humidity");
-    const windNode = document.getElementById("weather-wind");
-    const updateNode = document.getElementById("weather-updated");
-
-    if (!tempNode || !descNode || !humidNode || !windNode || !updateNode) {
+  const transitionTo = (targetIndex) => {
+    if (slides.length < 2 || isTransitioning) {
       return;
     }
 
-    const code = Number(current.weather_code);
-    tempNode.textContent = `${Math.round(current.temperature_2m)} C`;
-    descNode.textContent = weatherCodeMap[code] || "Condição sem descricao";
-    humidNode.textContent = `Humidade: ${current.relative_humidity_2m}%`;
-    windNode.textContent = `Vento: ${current.wind_speed_10m} km/h`;
-
-    const now = new Date();
-    updateNode.textContent = `Atualizado: ${now.toLocaleString("pt-PT")}`;
-  } catch (error) {
-    const tempNode = document.getElementById("weather-temp");
-    const descNode = document.getElementById("weather-desc");
-    const updateNode = document.getElementById("weather-updated");
-
-    if (tempNode) {
-      tempNode.textContent = "--";
-    }
-    if (descNode) {
-      descNode.textContent = "Meteorologia indisponivel";
-    }
-    if (updateNode) {
-      updateNode.textContent = "Atualizado: sem ligacao";
+    const nextIndex = (targetIndex + slides.length) % slides.length;
+    if (nextIndex === activeIndex) {
+      queueNextSlide();
+      return;
     }
 
-    console.error(error);
-  }
+    isTransitioning = true;
+    clearCycleTimer();
+
+    const currentSlide = slides[activeIndex];
+    currentSlide.classList.remove("is-active");
+    currentSlide.setAttribute("aria-hidden", "true");
+
+    window.setTimeout(() => {
+      activeIndex = nextIndex;
+
+      const nextSlide = slides[activeIndex];
+      nextSlide.classList.add("is-active");
+      nextSlide.setAttribute("aria-hidden", "false");
+      setIndicators(activeIndex);
+
+      window.setTimeout(() => {
+        isTransitioning = false;
+        queueNextSlide();
+      }, FADE_DURATION_MS);
+    }, FADE_DURATION_MS);
+  };
+
+  indicators.forEach((indicator) => {
+    indicator.addEventListener("click", () => {
+      const target = Number(indicator.dataset.slideTo || "0");
+      if (Number.isNaN(target) || target === activeIndex) {
+        return;
+      }
+
+      transitionTo(target);
+    });
+  });
+
+  root.addEventListener("mouseenter", clearCycleTimer);
+  root.addEventListener("focusin", clearCycleTimer);
+
+  root.addEventListener("mouseleave", () => {
+    if (!isTransitioning) {
+      queueNextSlide();
+    }
+  });
+
+  root.addEventListener("focusout", () => {
+    if (!isTransitioning) {
+      queueNextSlide();
+    }
+  });
+
+  showSlide(activeIndex);
+  queueNextSlide();
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-  setMiniChartBars();
-  updateAirStatusFromRoomData();
-  fetchPombalWeather();
+  setConsumoBars();
+  initInfoRotator();
 });
